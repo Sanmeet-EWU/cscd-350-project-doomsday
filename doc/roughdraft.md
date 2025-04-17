@@ -1,4 +1,5 @@
 description of app:
+
 - can input a file of lyrics
 - can store and quickly query data on rhymes and word pronunciation
 - can assign colors to phonemes in lyrics file based on mapper algorithm
@@ -8,8 +9,8 @@ description of app:
 - once added to path, can call from anywhere
 - maybe installation process to automatically install/add to path?
 
-
 user stories ideas:
+
 1. as an app user, I want to provide the app lyrics to parse so I can see my rhyme scheme.
 2. as an app user, I want to be able to input my lyrics as a text file, so I don't have to type them in manually.
 3. as an app user, I want to also be able to provide my app lyrics either through a file, or typing them in myself, to allow for flexibility.
@@ -25,6 +26,7 @@ user stories ideas:
 13. as an app user, I don't want to worry about having to remove nonalphanumeric characters, in order to make the process easier.
 
 requirements and specifications:
+
 1. There will be a feature to intake lyrics through the command line.
 2. There will be a feature to intake lyrics through the command line as a file. This feature will use .NET library for reading files.
 3. There will also be a feature to intake lyrics as the user types them out. This feature will use .NET library for building the string up.
@@ -40,6 +42,7 @@ requirements and specifications:
 13. There will be a feature to parse the lyrics and ignore values that aren't essential to the analyzation of the lyrical content. The app will also put the nonessential characters back to maintain integrity of input.
 
 potential glossary vocab:
+
 - phoneme:
 - syllable:
 - syllabized word:
@@ -53,3 +56,12 @@ potential glossary vocab:
 - Spectre.Console:
 - Visual Studio:
 - ?
+
+todo:
+
+- create copy of this doc and make things more general and abstract (these are for communication between dev and users so there needs to be a common understanding)
+- eliminate 'how' such as .net library
+- research if there's:
+  - another market for this
+  - how youtubers color code their stuff in real time (can i make an extension for this?)
+  - NLP ways of doing this such as OpenAI or Llama (local)
