@@ -4,4 +4,6 @@
 *.fls
 *.log
 *.synctex.gz
-
+.vs/
+obj
+bin
