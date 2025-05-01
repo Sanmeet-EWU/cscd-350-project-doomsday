@@ -1,10 +1,14 @@
-﻿namespace Doomsday.Cli
+﻿using Spectre.Console;
+
+namespace Doomsday.Cli;
+
+public class Program
 {
-    internal class Program
+    public static void Main(string[] args)
     {
-        static void Main(string[] args)
+        AnsiConsole.AlternateScreen(() =>
         {
-            Console.WriteLine("Hello, World!");
-        }
+            ConsoleService.Run();
+        });
     }
 }
