@@ -1,0 +1,66 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.3">
+  <diagram name="Page-1" id="9eebaCfnpQd0FRLwicni">
+    <mxGraphModel dx="1434" dy="806" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3d-8osv7F8x_KJsWAOE--3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3d-8osv7F8x_KJsWAOE--2" target="3d-8osv7F8x_KJsWAOE--4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="195" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3d-8osv7F8x_KJsWAOE--2" value="In: txt file with words to be parsed" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="10" y="50" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="3d-8osv7F8x_KJsWAOE--6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3d-8osv7F8x_KJsWAOE--4" target="3d-8osv7F8x_KJsWAOE--5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3d-8osv7F8x_KJsWAOE--4" value="Convert to word list" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="160" y="50" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="3d-8osv7F8x_KJsWAOE--10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3d-8osv7F8x_KJsWAOE--5" target="3d-8osv7F8x_KJsWAOE--9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3d-8osv7F8x_KJsWAOE--5" value="For each word in document, go through following if-else:&lt;div&gt;1. if in rhyme db table, take entry from there&lt;/div&gt;&lt;div&gt;2. otherwise check for it in phoneme table, if it&#39;s there (and since it&#39;s not in rhyme table it won&#39;t be in plain syll table), convert to syllabized phonemes, and get plaintext syllables from google definitions (save to db)&lt;/div&gt;&lt;div&gt;Save doc pronunciation &amp;amp; plaintext pronunciation for next step&lt;/div&gt;" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="320" y="10" width="240" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="3d-8osv7F8x_KJsWAOE--9" value="Mapping algorithm (found in my other Rhyme repo):&lt;div&gt;1. create list of syllabized phonemes, grouped by word. Get count of phonemes.&lt;/div&gt;&lt;div&gt;2. Have 2d array mapper of scores of rhymes between diff syllables (count x count)&lt;/div&gt;&lt;div&gt;3. have jagged 2d array of matched syllables&#39; indices&lt;/div&gt;&lt;div&gt;4. nested for loop through each syllable pair, score each except between the same syllable, plus add good scores to jagged array&lt;/div&gt;&lt;div&gt;5. go through each syllable and assign colors to matches, wrapping in Syllable class container&lt;/div&gt;&lt;div&gt;6. go through each word (divided into array of phonemes) and convert plain text word into syllabized plain text word&lt;/div&gt;&lt;div&gt;7. replace each pronunciation syllable in syllable class into plaintext syllable, wrap each set of Syllables into another Word wrapper class&lt;/div&gt;" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="600" y="100" width="240" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="3d-8osv7F8x_KJsWAOE--11" value="with current implementation in mind (converting pronounced word into phonemes algorithmically), these may not line up for perfect rhymes" style="label;fontStyle=0;strokeColor=none;fillColor=none;align=left;verticalAlign=top;overflow=hidden;spacingLeft=28;spacingRight=4;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;imageWidth=16;imageHeight=16;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" parent="1" vertex="1">
+          <mxGeometry x="320" y="170" width="237.5" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-1" value="Overall Process" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry y="10" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-4" value="Seeding:&amp;nbsp;&lt;div&gt;1. add cmudict words if none exist in phoneme table&lt;/div&gt;&lt;div&gt;2. add plain syllable words if none in plainsyllable table&lt;/div&gt;&lt;div&gt;3. if doing either of the above, go through each cmudict word and search through plain syllable table for the same word. if exists, combine and add to main Rhyme table.&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="20" y="430" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-5" value="Db process" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="100" y="400" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-11" value="later (db process) when considering adding new words to phoneme/plainsyll tables (CURRENT PLAN - later do ML/DL):&lt;div&gt;&lt;br&gt;&lt;div&gt;if word NOT IN rhyme table AND word IN phoneme table and not in plainsyll:&lt;/div&gt;&lt;div&gt;scrape google&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;if word not in rhyme or phoneme table and in plainsyll:&lt;/div&gt;&lt;div&gt;not sure yet...&lt;/div&gt;&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="20" y="600" width="260" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-13" value="When/how to add words:" style="label;fontStyle=0;strokeColor=none;fillColor=none;align=left;verticalAlign=top;overflow=hidden;spacingLeft=28;spacingRight=4;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;imageWidth=16;imageHeight=16;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="310" y="430" width="180" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-16" value="Adding phonemes: this would probably have to be done through ML/DL. either through voice recognition or converting english words to their respective phonemes. the latter would be helpful for lyrics, but the former helpful for actually hearing a song&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Adding plain sylls: either through scraping google&#39;s definitions (as they have almost every word plain text syllabized) or maybe ML/DL&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;notes: probably more likely that you need the latter as it&#39;s 133k vs 24k dict word counts&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="460" width="160" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="j_Riq5m-mpxCWQmBjOR4-23" target="j_Riq5m-mpxCWQmBjOR4-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-23" value="ML/DL thoughts:&lt;div&gt;Probably will need ML/DL for three processes:&lt;/div&gt;&lt;div&gt;1. voice to plain text&lt;/div&gt;&lt;div&gt;2. voice to phonemes (probably can syllabize roughly from here)&lt;/div&gt;&lt;div&gt;3. syllabizing word if do not have in db&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="570" y="560" width="230" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="j_Riq5m-mpxCWQmBjOR4-24" target="j_Riq5m-mpxCWQmBjOR4-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="j_Riq5m-mpxCWQmBjOR4-24" value="current thoughts:&lt;div&gt;1. find voice recognition library/software&lt;/div&gt;&lt;div&gt;2. build off of cmu sphinx to create voice to phonemes&lt;/div&gt;&lt;div&gt;3. maybe use ML project for this&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="550" y="760" width="270" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
