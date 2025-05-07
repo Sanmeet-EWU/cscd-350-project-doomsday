@@ -7,3 +7,5 @@
 .vs/
 obj
 bin
+
+artifacts/
