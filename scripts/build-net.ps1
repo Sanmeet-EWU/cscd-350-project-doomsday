@@ -1,12 +1,11 @@
 $ScriptsDir = Join-Path $PSScriptRoot "..\src\Rhyme\Rhyme"
 
-echo $ScriptsDir
-
 pushd $ScriptsDir
 
 $ArtifactsPath = Join-Path $PSScriptRoot "..\artifacts\net-app"
 
 try {
+    dotnet clean Rhyme.csproj
     dotnet publish Rhyme.csproj `
         -c Release `
         -r win-x64 `

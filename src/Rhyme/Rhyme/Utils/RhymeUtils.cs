@@ -80,7 +80,7 @@ public class RhymeUtils
             if (rhymeMatchMapper[index].Count > 0)
             {
                 if (index < rhymeMatchMapper[index][0])
-                {
+                { 
                     color = Colors[colorIndex];
                     colorIndex++;
                 }
@@ -89,7 +89,7 @@ public class RhymeUtils
                     color = result[rhymeMatchMapper[index][0]].Color;
                 }
             }
-            Syllable syllable = new Syllable(syllableString, color);
+            Syllable syllable = new Syllable(syllableString.ToUpper(), color);
             result.Add(syllable);
         }
 
@@ -110,7 +110,7 @@ public class RhymeUtils
             List<string> plainTextSyllables = ConvertWordToPlainTextSyllables(word);
             if (plainTextSyllables.Count != phonemes.Length)
             {
-                result.Add(new Word([new Syllable(plainTextWord, "")]));
+                result.Add(new Word([new Syllable(plainTextWord.ToUpper(), "")]));
             }
             else
             {
@@ -156,7 +156,7 @@ public class RhymeUtils
             var foundRhyme = Db.Rhymes.FirstOrDefault(x => x.Word.Equals(word.ToUpper()));
             if (foundRhyme is null)
             {
-                phonemesByWord.Add([word]);
+                phonemesByWord.Add([word.ToUpper()]);
             }
             else
             {

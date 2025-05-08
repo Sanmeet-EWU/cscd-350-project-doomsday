@@ -1,7 +1,7 @@
 from textual.app import App, ComposeResult
 from textual import events
 from textual.widgets import Input, Static
-from textual.containers import Container
+from textual.containers import Center
 import subprocess, json
 
 def get_rhyme_scheme():
@@ -26,19 +26,36 @@ class MyApp(App):
         self.rhyme_scheme = rhyme_scheme
 
     def compose(self) -> ComposeResult:
-        with Container():
-            yield Input(placeholder="enter filename", id="my-input")
+        title = """
+[black] ____   ___   ___  __  __ ____  ____    _ __   __
+|  _ \\ / _ \\ / _ \\|  \\/  / ___||  _ \\  / \\\\ \\ / /
+| | | | | | | | | | |\\/| \\___ \\| | | |/ _ \\\\ V / 
+| |_| | |_| | |_| | |  | |___) | |_| / ___ \\| |  
+|____/ \\___/ \\___/|_|  |_|____/|____/_/   \\_\\_|  
+[/black]"""
+        with Center():
+            yield Static(title)
             yield Static("", markup=True, id="static")
+            yield Input(placeholder="enter filename", id="my-input")
 
     def on_mount(self):
         static = self.query_one("#static", Static)
         all_syllables = []
+        is_newline = False
         for entry in rhyme_scheme:
             for syl in entry.get("Syllables", []):
-                all_syllables.append(
-                    f"[{syl['Color']}]{syl['SyllableContent']}[/{syl['Color']}]"
+                if syl['SyllableContent'] == 'NEWLINECHAR':
+                    is_newline = True
+                    all_syllables.append('\n')
+                else:
+                    all_syllables.append(
+                        f"[black on {syl['Color']}]{syl['SyllableContent']}[/]"
                 )
-        static.update(" ".join(all_syllables))
+            if not is_newline:
+                all_syllables.append(" ")
+            else:
+                is_newline = False
+        static.update("".join(all_syllables))
 
 if __name__ == '__main__':
     rhyme_scheme = get_rhyme_scheme()

@@ -1,9 +1,9 @@
 ﻿namespace Rhyme.FileIO;
+using System.Text.RegularExpressions;
 
 public class FileUtils
 {
-    private static readonly string[] s_allDelimiters = ["\r\n", "\r", "\n", " "];
-    private static readonly string[] s_newLineDelimiters = ["\r\n", "\r", "\n"];
+    private static readonly string[] s_newLineDelimiters = ["\r\n", "\n", "\r"];
     public static string GetLyrics(string path)
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(path);
@@ -24,13 +24,48 @@ public class FileUtils
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(lyrics);
 
-        return lyrics.Split(s_allDelimiters, StringSplitOptions.RemoveEmptyEntries 
-            | StringSplitOptions.TrimEntries)
-            .Select(s =>
+        string[] modifiedLyrics = Regex.Split(lyrics, "(\r\n|\n)");
+
+        List<string> result = [];
+
+        foreach (string s in modifiedLyrics)
+        {
+            if (s == "\r\n" || s == "\n")
             {
-                IEnumerable<char> characters = s.Where(c => (char.IsLetter(c) || char.IsNumber(c)));
-                return string.Join(string.Empty, characters);
-            });
+                result.Add("NEWLINECHAR");
+            } else
+            {
+                var words = s
+                    .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                    .Select(s => new string(s.Where(char.IsLetterOrDigit).ToArray()))
+                    .Where(s => s.Length > 0);
+
+                result.AddRange(words);
+            }
+        }
+        //for (int i = 0; i < modifiedLyrics.Length; i++)
+        //{
+        //    string[] split = modifiedLyrics[i].Split(" ")
+        //        .Select(s =>
+        //        {
+        //            IEnumerable<char> characters = s.Where(c => (char.IsLetter(c) || char.IsNumber(c)));
+        //            return string.Join(string.Empty, characters);
+        //        }).ToArray();
+        //    foreach (string s in split)
+        //    {
+        //        result.Add(s);
+        //    }
+        //}
+
+        return result;
+
+        //return lyrics.Split(" ", StringSplitOptions.RemoveEmptyEntries 
+        //    | StringSplitOptions.TrimEntries)
+        //    .Select(s =>
+        //    {
+        //        IEnumerable<char> characters = s.Where(c => (char.IsLetter(c) || char.IsNumber(c)));
+        //        return string.Join(string.Empty, characters);
+        //    });
     }
 
     public static IEnumerable<string> GetCmuDict(string? path = null)

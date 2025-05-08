@@ -1,7 +1,5 @@
 $ScriptsDir = Join-Path $PSScriptRoot "scripts"
 
-echo $ScriptsDir
-
 pushd $ScriptsDir
 
 try {
