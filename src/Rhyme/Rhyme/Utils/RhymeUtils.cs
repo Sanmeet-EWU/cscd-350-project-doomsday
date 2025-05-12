@@ -33,9 +33,9 @@ public class RhymeUtils
         Db = db;
     }
 
-    public List<Word> Run()
+    public List<Word> Run(string lyricsPath = "sample-text.txt")
     {
-        string sampleText = FileUtils.GetLyrics("sample-text.txt");
+        string sampleText = FileUtils.GetLyrics(lyricsPath);
         int[] numberOfWordsEachLine = FileUtils.GetNumberOfWordsByLineList(sampleText);
         IEnumerable<string> words = FileUtils.GetWordsList(sampleText);
         List<string[]> phonemesByWord = GetPronunciation(words);

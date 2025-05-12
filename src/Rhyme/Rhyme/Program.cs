@@ -15,11 +15,18 @@ public class Program
 
         RhymeUtils rhymeUtils = new(db);
 
-        List<Word> result = rhymeUtils.Run();
+        string lyricsPath = "sample-text.txt";
+
+        if (args.Length > 0)
+        {
+            lyricsPath = args[0];
+        }
+
+        List<Word> result = rhymeUtils.Run(lyricsPath);
 
         var options = new JsonSerializerOptions
         {
-            WriteIndented = true    // pretty-print
+            WriteIndented = true
         };
         string json = JsonSerializer.Serialize(result, options);
 
