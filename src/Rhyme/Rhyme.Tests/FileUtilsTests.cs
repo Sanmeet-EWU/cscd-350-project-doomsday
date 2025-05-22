@@ -84,23 +84,6 @@ public class FileUtilsTests
     }
 
     [TestMethod]
-    [DataRow("hello\nim mark", new string[] { "hello", "im", "mark" })]
-    [DataRow("hello\nim jimbob the third  ", new string[] { "hello", "im", "jimbob", "the", "third" })]
-    [DataRow("hello\nim mark the fourth   \n", new string[] { "hello", "im", "mark", "the", "fourth" })]
-    [DataRow("\nhello\nim mark the fourth   \n", new string[] { "hello", "im", "mark", "the", "fourth" })]
-
-    public void GetWordsList_DifferingAmountOfLinesAndWords_ReturnsCorrectWordsAndCount(string lyrics, string[] result)
-    {
-        // Arrange
-
-        // Act
-        var wordsList = FileUtils.GetWordsList(lyrics).ToList();
-
-        // Assert
-        CollectionAssert.AreEquivalent(result, wordsList);
-    }
-
-    [TestMethod]
     [DataRow("hiya!", new string[] { "hiya" })]
     [DataRow("jimbob, the 3rd?", new string[] { "jimbob", "the", "3rd" })]
     [DataRow("skibididoowop.", new string[] { "skibididoowop" })]

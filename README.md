@@ -9,3 +9,8 @@ So the problem I am solving is creating my own open-source rhyme scheme colorer.
 ### Specifications
 
 I plan to use C#, as that's my favorite language and LINQ is amazing with databases (which I plan to use). I think making this a console application would make it easier, so I'm going to use a console library (Spectre.Console) to help me with making the format pretty and colored. The database will probably be SQLite.
+
+
+### Testing
+
+Run 'dotnet test' in the src/Rhyme solution to run C# tests and 'pytest' (with pytest pip installed) to run tests/ui/app\_test.py tests

@@ -1,7 +1,7 @@
 from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual import events
-from textual.widgets import Input, Static, DirectoryTree
+from textual.widgets import Input, Static, DirectoryTree, Footer
 from textual.containers import Center
 import subprocess, json
 from textual.message import Message
@@ -58,37 +58,49 @@ def get_rhyme_scheme(lyricsPath: str = None):
       raise
 
 class DirectoryScreen(Screen):
+    BINDINGS = [
+        ("j", "cursor_down", "Down"),
+        ("k", "cursor_up", "Up"),
+        ("enter", "select_path", "Select"),
+    ]
+
     def compose(self):
         yield DirectoryTree('/')
+        yield Static("hi")
 
-    async def on_directory_tree_node_selected(
-        self, event: DirectoryTree.NodeSelected
+    def action_cursor_down(self) -> None:
+        """Move the cursor down."""
+        tree = self.query_one(DirectoryTree)
+        tree.action_cursor_down()
+
+    def action_cursor_up(self) -> None:
+        """Move the cursor up."""
+        tree = self.query_one(DirectoryTree)
+        tree.action_cursor_up()
+
+    def on_directory_tree_directory_selected(
+        self, event: DirectoryTree.DirectorySelected
     ) -> None:
-        """Triggered whenever a node is (single-)clicked or Enter is pressed."""
-        selected_path: Path = event.node.data  # .data holds the Path
-        await self.post_message(PathSelected(selected_path))
+        tree = self.query_one(DirectoryTree)
+        static = self.query_one(Static)
+        if tree.cursor_node is not None:
+            path = event.path
+            static.update(str(path))
 
-    async def on_path_selected(self, message: PathSelected) -> None:
-        """Handle our custom PathSelected message."""
-        path = message.path
-        if path.is_dir():
-            tree = self.query_one(DirectoryTree)
-            await tree.root.expand_path(path, recursive=False)
-        else:
+    def on_directory_tree_file_selected(
+        self, event: DirectoryTree.FileSelected
+    ) -> None:
+        tree = self.query_one(DirectoryTree)
+        static = self.query_one(Static)
+        if tree.cursor_node is not None:
+            path = event.path
+            static.update(str(path))
             self.dismiss(path)
 
-
-    async def on_key(self, event: Key) -> None:
-        tree = self.query_one(DirectoryTree)
-        if tree.has_focus:
-            if event.key == "j":
-                tree.action_cursor_down()
-                event.stop()
-            elif event.key == "k":
-                tree.action_cursor_up()
-                event.stop()
-
 def json_to_markup(rhyme_scheme):
+    if not rhyme_scheme:
+        return "[red]No rhyme scheme data available[/]"
+
     all_syllables = []
     is_newline = False
     for entry in rhyme_scheme:
@@ -120,15 +132,24 @@ class MyApp(App):
     SCREENS = {'title': TitleScreen, 'dir': DirectoryScreen}
 
     def on_mount(self):
-        def get_path(path: str | None):
-            if path:
-                # rs = get_rhyme_scheme(path)
-                # markup = json_to_markup(rs)
-                self.app.push_screen(MarkupScreen(path))
-
-
-        self.push_screen('dir', get_path)
+        self.push_screen('dir', self.handle_file_selection)
         self.push_screen('title')
+
+    def handle_file_selection(self, path: Path | None) -> None:
+        if path and path.is_file():
+            print(f"Processing file: {path}")
+            try:
+                # Get the rhyme scheme from the file
+                rs = get_rhyme_scheme(str(path))
+                # Convert to markup
+                markup = json_to_markup(rs)
+                # Show the markup screen
+                self.push_screen(MarkupScreen(markup))
+            except Exception as e:
+                error_message = f"[red]Error processing file:[/]\n{type(e).__name__}: {str(e)}"
+                self.push_screen(MarkupScreen(error_message))
+        else:
+            print(f"Invalid path received: {path}")
 
 if __name__ == '__main__':
     app = MyApp()
