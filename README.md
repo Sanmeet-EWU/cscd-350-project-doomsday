@@ -18,6 +18,23 @@ Run 'dotnet test' in the src/Rhyme solution to run C# tests and 'pytest' (with p
 
 ### Developer guidelines:
 
+How to obtain source code: copy url and git clone on local machine
+Directory structure:
+- coverage : contains info about code coverage
+- doc : contains documentation
+- scripts : contains scripts
+- src : contains source code
+    - cli : contains frontend code
+    - Rhyme : contains backend .NET code
+- tests : contains some tests for frontend code
+- start.ps1 : startup script in powershell
+
+how to build software (run start.ps1)
+how to test: see testing section above
+how to add new tests: add new dotnet tests in src/Rhyme/Rhyme.Tests
+- add new pytest tests in the tests/ folder
+no guide to building release version, yet.
+
 #### Coding style
 Generally there is no specific coding style decided. Use the style of the surrounding code.
 Use spaces as tabs. Tabs are usually inconvenient when used in multi-developer environment because often each person uses different size of tabs. Formatting of code will usually look wrong when tabs and spaces are mixed. See this picture on how to setup Lazarus IDE. If you use different editor than IDE set it up accordingly.
