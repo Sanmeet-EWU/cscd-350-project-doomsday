@@ -33,6 +33,7 @@ how to build software (run start.ps1)
 how to test: see testing section above
 how to add new tests: add new dotnet tests in src/Rhyme/Rhyme.Tests
 - add new pytest tests in the tests/ folder
+
 no guide to building release version, yet.
 
 #### Coding style
