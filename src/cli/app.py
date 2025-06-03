@@ -1,15 +1,12 @@
 from textual.app import App, ComposeResult
 from textual.screen import Screen
-from textual import events
-from textual.widgets import Input, Static, DirectoryTree, Footer
+from textual.widgets import Static, DirectoryTree
 from textual.containers import Center
 import subprocess, json
 from textual.message import Message
-from textual.events import Key
 from pathlib import Path
 
 class PathSelected(Message):
-    """Custom message to carry the selected Path."""
     def __init__(self, path: Path) -> None:
         self.path = path
         super().__init__()
@@ -69,12 +66,10 @@ class DirectoryScreen(Screen):
         yield Static("hi")
 
     def action_cursor_down(self) -> None:
-        """Move the cursor down."""
         tree = self.query_one(DirectoryTree)
         tree.action_cursor_down()
 
     def action_cursor_up(self) -> None:
-        """Move the cursor up."""
         tree = self.query_one(DirectoryTree)
         tree.action_cursor_up()
 
@@ -139,11 +134,8 @@ class MyApp(App):
         if path and path.is_file():
             print(f"Processing file: {path}")
             try:
-                # Get the rhyme scheme from the file
                 rs = get_rhyme_scheme(str(path))
-                # Convert to markup
                 markup = json_to_markup(rs)
-                # Show the markup screen
                 self.push_screen(MarkupScreen(markup))
             except Exception as e:
                 error_message = f"[red]Error processing file:[/]\n{type(e).__name__}: {str(e)}"
