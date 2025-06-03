@@ -16,10 +16,12 @@ Prerequisites:
     - textual
     - pytest
 
- run `.\start.ps1` in powershell to build and run application
- 
-
-
+run `.\start.ps1` in powershell to build and run application
+You will reach the title screen, below:
+![Title screen](doc/1.png)
+Then press enter to continue and choose a file. Use up arrow down arrow (or vim shortcuts) to navigate between files and press enter on a directory to open it and enter on a file to select it for color coding:
+![File finder screen](doc/2.png)
+Then you will receive your color coded rhyme scheme. Press Ctrl+Q to exit.
 
 ### Specifications
 
