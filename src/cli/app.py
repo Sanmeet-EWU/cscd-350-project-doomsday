@@ -63,7 +63,6 @@ class DirectoryScreen(Screen):
 
     def compose(self):
         yield DirectoryTree('/')
-        yield Static("hi")
 
     def action_cursor_down(self) -> None:
         tree = self.query_one(DirectoryTree)
